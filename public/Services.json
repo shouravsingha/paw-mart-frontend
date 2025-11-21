@@ -1,0 +1,99 @@
+
+[
+  {
+    "serviceId": 1,
+    "serviceName": "Winter Coat Fitting for Dogs",
+    "providerName": "PawCare Studio",
+    "providerEmail": "info@pawcare.com",
+    "price": 25,
+    "rating": 4.9,
+    "slotsAvailable": 4,
+    "description": "Custom coat fitting and warm outfit options to keep your dog comfortable in the cold.",
+    "image": "https://i.ibb.co.com/nMsSNrgG/card-Image-1.jpg",
+    "category": "Clothing"
+  },
+  {
+    "serviceId": 2,
+    "serviceName": "Winter Grooming & Paw Treatment",
+    "providerName": "CozyPets Grooming",
+    "providerEmail": "hello@cozypets.com",
+    "price": 30,
+    "rating": 4.8,
+    "slotsAvailable": 3,
+    "description": "Professional grooming with moisturizing paw balm and winter-safe shampoo.",
+    "image": "https://i.ibb.co.com/RkxKV0vg/card-Image-2.jpg",
+    "category": "Grooming"
+  },
+  {
+    "serviceId": 3,
+    "serviceName": "Heated Pet House Installation",
+    "providerName": "WarmNest Pet Solutions",
+    "providerEmail": "support@warmnest.com",
+    "price": 45,
+    "rating": 4.7,
+    "slotsAvailable": 5,
+    "description": "Setup of insulated and heated pet houses for a safe and warm winter stay.",
+    "image": "https://i.ibb.co.com/2YLC1B3p/card-Image-3.jpg",
+    "category": "Shelter"
+  },
+  {
+    "serviceId": 4,
+    "serviceName": "Winter Health Checkup",
+    "providerName": "FurWell Vet Clinic",
+    "providerEmail": "contact@furwellvet.com",
+    "price": 40,
+    "rating": 4.9,
+    "slotsAvailable": 2,
+    "description": "Seasonal health assessment including immunity check and cold-weather care recommendations.",
+    "image": "https://i.ibb.co.com/8DBkKz4N/card-Image-4.jpg",
+    "category": "Health"
+  },
+  {
+    "serviceId": 5,
+    "serviceName": "Pet Winter Nutrition Plan",
+    "providerName": "HealthyPaws Diet Center",
+    "providerEmail": "diet@healthypaws.com",
+    "price": 20,
+    "rating": 4.6,
+    "slotsAvailable": 6,
+    "description": "Customized winter diet planning to boost energy and immunity for your pets.",
+    "image": "https://i.ibb.co.com/LdbcTMSq/card-Image-5.jpg",
+    "category": "Nutrition"
+  },
+  {
+    "serviceId": 6,
+    "serviceName": "Warm Boots & Paw Protection",
+    "providerName": "SnowPaws Accessories",
+    "providerEmail": "shop@snowpaws.com",
+    "price": 18,
+    "rating": 4.8,
+    "slotsAvailable": 7,
+    "description": "Durable winter boots and paw-protection gear to prevent frostbite and dryness.",
+    "image": "https://i.ibb.co.com/VWhXJTG2/card-Image-6.jpg",
+    "category": "Clothing"
+  },
+  {
+    "serviceId": 7,
+    "serviceName": "Cold Weather Walking Service",
+    "providerName": "FrostyWalk Pet Care",
+    "providerEmail": "care@frostywalks.com",
+    "price": 15,
+    "rating": 4.7,
+    "slotsAvailable": 4,
+    "description": "Safe winter walking with proper warm gear, boots, and hydration for pets.",
+    "image": "https://i.ibb.co.com/ynwxCX9Y/card-Image-7.jpg",
+    "category": "Walking"
+  },
+  {
+    "serviceId": 8,
+    "serviceName": "Winter Bath & Blow-Dry",
+    "providerName": "WarmWhisker Spa",
+    "providerEmail": "spa@warmwhisker.com",
+    "price": 28,
+    "rating": 4.9,
+    "slotsAvailable": 3,
+    "description": "Gentle warm-water bath and blow-dry session to keep pets clean and cozy.",
+    "image": "https://i.ibb.co.com/PZkmtSkk/card-Image-8.jpg",
+    "category": "Grooming"
+  }
+]
