@@ -28,8 +28,8 @@ const Services = () => {
 
   // Show services after data loaded
   return (
-    <div>
-      <h2 className='text-4xl font-bold mt-10 text-center'>Our All Services</h2>
+    <div className='lg:w-10/12 mx-auto'>
+      <h2 className='text-4xl font-bold mt-10 text-center '>Our All Services</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 place-items-center'>
         {services.map(service => (
           <div key={service.serviceId} className="card bg-base-100 w-96 shadow-sm">
