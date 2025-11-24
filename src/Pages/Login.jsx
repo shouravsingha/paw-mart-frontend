@@ -1,11 +1,16 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import auth from '../Firebase/Firebase.config';
 import { AuthContext } from '../Provider/AuthProvider';
+import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
-    const {setUser, user} = useContext(AuthContext)
+    const { setUser, handleGoogleSignIn } = useContext(AuthContext)
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const redirectPath = location.state || "/myprofile";
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -16,14 +21,27 @@ const Login = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 setUser(user)
+                navigate(redirectPath);
             })
             .catch((error) => {
                 console.log(error);
-                
+
             });
     }
-    console.log(user);
-    
+
+    const googleSignIn = () => {
+        handleGoogleSignIn()
+            .then(result => {
+                const user = result.user
+                setUser(user)
+                navigate(redirectPath);
+            })
+            .catch(error => {
+                console.log(error);
+
+            })
+    }
+
     return (
         <div>
             <div className="hero bg-base-200 min-h-screen">
@@ -46,6 +64,8 @@ const Login = () => {
                                 <div>
                                     <a className="link link-hover">Forgot password?</a>
                                 </div>
+
+                                <button onClick={googleSignIn} className='btn'><FcGoogle />Sign in with Google</button>
 
                                 <button className="btn btn-neutral mt-4">Login</button>
 

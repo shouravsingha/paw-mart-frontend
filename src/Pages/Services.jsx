@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -28,7 +29,7 @@ const Services = () => {
 
   // Show services after data loaded
   return (
-    <div className='lg:w-10/12 mx-auto'>
+    <div className='lg:w-10/12 mx-auto mb-30'>
       <h2 className='text-4xl font-bold mt-10 text-center '>Our All Services</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 place-items-center'>
         {services.map(service => (
@@ -45,7 +46,7 @@ const Services = () => {
                 <p>Rating: {service?.rating}</p>
               </div>
               <div className="card-actions justify-start">
-                <button className="btn btn-primary">View Details</button>
+                <Link to={`/details/${service?.serviceId}`}><button className="btn btn-primary">View Details</button></Link>
               </div>
             </div>
           </div>

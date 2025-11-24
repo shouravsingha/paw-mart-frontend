@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import auth from '../Firebase/Firebase.config';
-
+import { FcGoogle } from 'react-icons/fc';
 const Register = () => {
-    const { registerWithEmailPassword, setUser, user } = useContext(AuthContext)
+    const { registerWithEmailPassword, setUser, handleGoogleSignIn } = useContext(AuthContext)
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -31,7 +31,17 @@ const Register = () => {
 
             })
     }
-    console.log(user);
+    const googleSignUp = () => {
+         handleGoogleSignIn()
+         .then(result => {
+            const user = result.user
+            setUser(user)
+         })
+         .catch(error => {
+            console.log(error);
+            
+         })
+    }
     
     return (
         <div>
@@ -61,6 +71,8 @@ const Register = () => {
                                 {/* password */}
                                 <label className="label">Password</label>
                                 <input name='password' type="password" className="input" placeholder="Password" />
+
+                                <button onClick={googleSignUp} className='btn'><FcGoogle /></button>
 
                                 <button className="btn btn-neutral mt-4">Register</button>
 

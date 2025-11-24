@@ -39,7 +39,7 @@ const WinterCareTips = () => {
                         <figure className='flex justify-center'>
                             <img className='w-20 h-20 object-contain' src={tip?.image} alt={tip?.title} />
                         </figure>
-                        <div className="card-body text-center">
+                        <div className="card-body text-center flex flex-col justify-center items-center">
                             <h2 className="card-title text-lg">{tip?.title}</h2>
                             <p className='text-sm mt-2'>{tip?.description}</p>
                         </div>
