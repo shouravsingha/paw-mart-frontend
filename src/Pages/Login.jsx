@@ -10,7 +10,9 @@ const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const redirectPath = location.state || "/myprofile";
+    
+    
+    
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -21,7 +23,7 @@ const Login = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 setUser(user)
-                navigate(redirectPath);
+                navigate(location.state);
             })
             .catch((error) => {
                 console.log(error);
@@ -34,7 +36,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user
                 setUser(user)
-                navigate(redirectPath);
+                navigate(location.state);
             })
             .catch(error => {
                 console.log(error);

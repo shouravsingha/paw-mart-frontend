@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const PopularSection = () => {
 
@@ -28,12 +29,11 @@ const PopularSection = () => {
                 Popular Winter Care Services
             </h3>
 
-            {/* Responsive Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                 {
-                    services.slice(0, 6).map((service, index) =>
+                    services.slice(0, 6).map((service) =>
                         <div
-                            key={index}
+                            key={service.serviceId}
                             className="card w-full bg-base-100 shadow-md rounded-xl"
                         >
                             <figure>
@@ -55,7 +55,11 @@ const PopularSection = () => {
                                 </div>
 
                                 <div className="card-actions mt-3">
-                                    <button className="btn btn-primary w-full">View Details</button>
+                                    <Link to={`/details/${service.serviceId}`}>
+                                        <button className="btn btn-primary w-full">
+                                            View Details
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
