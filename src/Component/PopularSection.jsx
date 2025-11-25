@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { motion } from "motion/react"
 
 const PopularSection = () => {
 
@@ -32,7 +33,9 @@ const PopularSection = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                 {
                     services.slice(0, 6).map((service) =>
-                        <div
+                        <motion.div whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                            onHoverStart={() => console.log('hover started!')}
                             key={service.serviceId}
                             className="card w-full bg-base-100 shadow-md rounded-xl"
                         >
@@ -62,7 +65,7 @@ const PopularSection = () => {
                                     </Link>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     )
                 }
             </div>

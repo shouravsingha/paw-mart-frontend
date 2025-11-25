@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from "motion/react"
 
 
 const doctors = [
@@ -27,18 +28,21 @@ const doctors = [
 
 const MeetOurVets = () => {
     return (
-        <div className='mt-10 w-11/12 mx-auto'>
+        <div className='mt-15 w-11/12 mx-auto mb-30'>
             <div>
                 <h2 className='font-bold text-4xl text-center'>Meet Our Expert Vets</h2>
             </div>
             <div className='mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
                 {doctors.map((vet) => (
-                    <div key={vet.id} className="card bg-base-100 shadow-2xl">
+                    <motion.div whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onHoverStart={() => console.log('hover started!')}
+                        key={vet.id} className="card bg-base-100 shadow-2xl">
                         <figure>
-                            <img 
+                            <img
                                 className='h-60 w-full object-cover'
-                                src={vet?.image} 
-                                alt={vet?.name} 
+                                src={vet?.image}
+                                alt={vet?.name}
                             />
                         </figure>
                         <div className="card-body">
@@ -49,7 +53,7 @@ const MeetOurVets = () => {
                                 <button className="btn btn-primary w-full">Book Appointment</button>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </div>

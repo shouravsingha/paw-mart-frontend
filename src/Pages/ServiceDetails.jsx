@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router';
 
+
 const ServiceDetails = () => {
 
     const { myId } = useParams();

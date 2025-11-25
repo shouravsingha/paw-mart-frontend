@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+.font{
+    font-family: "Caveat", cursive;
+}

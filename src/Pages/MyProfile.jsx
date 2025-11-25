@@ -41,7 +41,7 @@ const MyProfile = () => {
 
                 <h2 className="text-2xl font-bold mt-4">{user.displayName}</h2>
                 <p className="mt-2">{user.email}</p>
-                <button onClick={handleOpenForm} className='btn btn-parimary mt-5'>Update Profile</button>
+                <button onClick={handleOpenForm}   className='btn btn-parimary mt-5'>Update Profile</button>
 
                 {
                     isOpen && (
