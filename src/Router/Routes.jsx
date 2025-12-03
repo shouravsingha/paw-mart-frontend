@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import ServiceDetails from "../Pages/ServiceDetails";
 import ForgetPass from "../Pages/ForgetPass";
 import Error from "../Pages/Error";
+import AddListing from "../Pages/AddListing";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         {
           path: "/forget/:email",
           element: <ForgetPass></ForgetPass>
+        },
+        {
+          path: "/addlisting",
+          element: <AddListing></AddListing>
         }
     ]
   },

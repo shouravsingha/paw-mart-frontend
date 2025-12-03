@@ -8,7 +8,7 @@ const PopularSection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/Services.json')
+        fetch('http://localhost:3000/listing')
             .then(res => res.json())
             .then(data => {
                 setServices(data);
@@ -27,7 +27,7 @@ const PopularSection = () => {
     return (
         <div className="mt-8 w-11/12 mx-auto lg:w-9/12">
             <h3 className="font-bold text-3xl text-center">
-                Popular Winter Care Services
+                Our Pet Care Products & Services
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
@@ -36,30 +36,33 @@ const PopularSection = () => {
                         <motion.div whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             onHoverStart={() => console.log('hover started!')}
-                            key={service.serviceId}
-                            className="card w-full bg-base-100 shadow-md rounded-xl"
+                            key={service._id}
+                            className="card w-full bg-base-100 shadow-2xl rounded-xl"
                         >
-                            <figure>
+                            <div className="px-6 pt-6 overflow-hidden rounded-xl">
                                 <img
                                     src={service?.image}
                                     alt={service?.serviceName}
                                     className="w-full h-64 object-cover rounded-t-xl"
                                 />
-                            </figure>
+                            </div>
 
                             <div className="card-body">
-                                <h2 className="card-title text-lg font-semibold">
-                                    {service?.serviceName}
-                                </h2>
-
-                                <div className="flex justify-between text-sm text-gray-600 mt-1">
-                                    <p>Price: ${service?.price}</p>
-                                    <p>Rating: {service?.rating}</p>
+                                <div className='flex justify-between'>
+                                    <h2 className="card-title text-lg font-semibold">
+                                        {service?.name}
+                                    </h2>
+                                    <h4>Location : {service?.location}</h4>
                                 </div>
 
-                                <div className="card-actions mt-3">
-                                    <Link to={`/details/${service.serviceId}`}>
-                                        <button className="btn btn-primary w-full">
+                                <div className="flex justify-between text-sm text-gray-600">
+                                    <p>Price : ${service?.price}</p>
+                                    <h4>Category : {service?.category}</h4>
+                                </div>
+
+                                <div className="mt-3">
+                                    <Link to={`/details/${service._id}`}>
+                                        <button className="btn btn-primary block w-full">
                                             View Details
                                         </button>
                                     </Link>

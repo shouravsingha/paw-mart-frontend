@@ -11,11 +11,11 @@ const Services = () => {
       .then(res => res.json())
       .then(data => {
         setServices(data);
-        setLoading(false); // data loaded
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
-        setLoading(false); // stop loading even if error
+        setLoading(false);
       });
   }, []);
 
@@ -28,7 +28,7 @@ const Services = () => {
     );
   }
 
-  // Show services after data loaded
+ 
   return (
     <div className='lg:w-10/12 mx-auto mb-30'>
       <h2 className='text-4xl font-bold mt-10 text-center '>Our All Services</h2>

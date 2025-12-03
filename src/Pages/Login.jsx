@@ -53,7 +53,6 @@ const Login = () => {
             <div className="hero bg-base-200 min-h-screen">
                 <div className="hero-content flex-col items-center">
 
-                    {/* Heading Center */}
                     <div className="text-center mb-8">
                         <h1 className="text-5xl font-bold text-center">Login now!</h1>
                     </div>
@@ -105,7 +104,7 @@ const Login = () => {
                                 {/* Login */}
                                 <button className="btn btn-neutral mt-4">Login</button>
 
-                                {/* Redirect */}
+                               
                                 <div>
                                     <p>
                                         Don't have an account? please{" "}

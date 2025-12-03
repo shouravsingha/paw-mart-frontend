@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaStar } from 'react-icons/fa';
+import { FaLocationArrow, FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router';
 
 
 const ServiceDetails = () => {
 
     const { myId } = useParams();
-    const [services, setServices] = useState([]);
+    const [service, setService] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -27,13 +28,15 @@ const ServiceDetails = () => {
     };
 
     useEffect(() => {
-        fetch('/Services.json')
+        fetch(`http://localhost:3000/listing/${myId}`)
             .then(res => res.json())
-            .then(data => setServices(data))
+            .then(data => {
+                setService(data)
+                setLoading(false)
+            })
             .catch(error => console.log(error));
-    }, []);
+    }, [myId]);
 
-    const findResult = services.find(service => service.serviceId == myId);
 
     return (
         <div className="w-11/12 md:w-9/12 lg:w-7/12 mx-auto mt-12 mb-20">
@@ -42,7 +45,7 @@ const ServiceDetails = () => {
                 {/* Image Section */}
                 <figure className="w-full md:w-1/2">
                     <img
-                        src={findResult?.image}
+                        src={service?.image}
                         alt="service"
                         className="w-full h-64 md:h-full object-cover rounded-xl"
                     />
@@ -51,28 +54,28 @@ const ServiceDetails = () => {
                 {/* Details Section */}
                 <div className="flex flex-col gap-4 w-full md:w-1/2">
                     <h2 className="text-2xl md:text-3xl font-bold">
-                        {findResult?.serviceName}
+                        {service?.name}
                     </h2>
 
                     <p className="text-gray-600 font-medium">
-                        Provider: {findResult?.providerName}
+                        Owner’s Email : {service?.email}
                     </p>
 
                     <p className="text-gray-700 leading-relaxed">
-                        {findResult?.description}
+                        {service?.description}
                     </p>
 
                     <p className="font-medium">
-                        Available Slots:{" "}
+                        Category:{" "}
                         <span className="font-bold">
-                            {findResult?.slotsAvailable}
+                            {service?.category}
                         </span>
                     </p>
 
                     <div className="flex justify-between text-lg font-semibold">
-                        <p>Price: ${findResult?.price}</p>
+                        <p>Price: ${service?.price}</p>
                         <p className='flex items-center gap-0.5'>
-                            Rating:  <FaStar /> {findResult?.rating}
+                            Location :   {service?.location}
                         </p>
                     </div>
 
