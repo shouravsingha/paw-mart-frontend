@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 import { signOut } from 'firebase/auth';
 import auth from '../Firebase/Firebase.config';
@@ -7,6 +7,11 @@ import auth from '../Firebase/Firebase.config';
 const NavBar = () => {
 
     const { user } = useContext(AuthContext)
+
+    const navClass = ({ isActive }) =>
+        isActive
+            ? "text-primary font-bold underline"
+            : "text-gray-700";
 
     const handleSignOut = () => {
         signOut(auth)
@@ -22,10 +27,11 @@ const NavBar = () => {
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
 
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/services">Services</Link></li>
-                        <li><Link to="/myprofile">My Profile</Link></li>
-                        <li><Link to="/addlisting">Add Listing</Link></li>
+                        <li><NavLink to="/" className={navClass} end>Home</NavLink></li>
+                        <li><NavLink to="/services" className={navClass}>Pets & Supplies</NavLink></li>
+                        <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
+                        <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
+                        <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
 
                     </ul>
                 </div>
@@ -33,10 +39,11 @@ const NavBar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to='/services'>Services</Link></li>
-                    <li><Link to="/myprofile">My Profile</Link></li>
-                    <li><Link to="/addlisting">Add Listing</Link></li>
+                    <li><NavLink to="/" className={navClass} end>Home</NavLink></li>
+                    <li><NavLink to="/services" className={navClass}>Pets & Supplies</NavLink></li>
+                    <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
+                    <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
+                    <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
                 </ul>
             </div>
             {

@@ -1,12 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
+import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 
-const AddListing = () => {
+const UpdateListing = () => {
 
-    const { user } = useContext(AuthContext)
+    const {user} = useContext(AuthContext)
+    const {id} = useParams()
+    const [updateListing, setUpdateListing] = useState()
+    const [category, setCategory] =useState(updateListing?.category)
+    const navigation = useNavigate()
+    
+    useEffect(() =>{
+        axios.get(`http://localhost:3000/listing/${id}`)
+        .then(res =>{
+            setUpdateListing(res.data)
+            setCategory(res.data.category)
+        })
+    },[id])
 
-    const handleSubmit = (e) => {
+    
+    
+    const handleSubmit = (e) =>{
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
@@ -27,18 +42,23 @@ const AddListing = () => {
             image,
             date,
             email,
+            createdAt: updateListing?.createdAt
         }
         console.log(formData);
-        axios.post('http://localhost:3000/listing', formData)
+
+        axios.put(`http://localhost:3000/update/${id}`, formData)
         .then(res =>{
-            console.log(res);
+            console.log(res.data);
+            navigation('/mylisting')
+        })
+        .catch(err =>{
+            console.log(err);
             
         })
-        
     }
     return (
-        <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
-            <h1 className="text-2xl font-bold mb-4">Add Product / Pet</h1>
+        <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md mt-15">
+            <h1 className="text-2xl font-bold mb-4">Update Listing</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -46,6 +66,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Product / Pet Name</label>
                     <input
+                    defaultValue={updateListing?.name}
                         type="text"
                         name="name"
                         className="w-full border rounded-lg px-3 py-2 focus:ring"
@@ -57,8 +78,10 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Category</label>
                     <select
+                        value={category}
                         name="category"
                         className="w-full border rounded-lg px-3 py-2"
+                        onChange={(e) => setCategory(e.target.value)}
                     >
                         <option value="">Select Category</option>
                         <option value="Pets">Pets</option>
@@ -72,6 +95,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Price</label>
                     <input
+                    defaultValue={updateListing?.price}
                         type="number"
                         name="price"
                         className='w-full border rounded-lg px-3 py-2'
@@ -82,6 +106,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Location</label>
                     <input
+                    defaultValue={updateListing?.location}
                         type="text"
                         name="location"
                         className="w-full border rounded-lg px-3 py-2"
@@ -93,6 +118,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Description</label>
                     <textarea
+                    defaultValue={updateListing?.description}
                         name="description"
                         className="w-full border rounded-lg px-3 py-2"
                         rows={3}
@@ -104,6 +130,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Image URL</label>
                     <input
+                    defaultValue={updateListing?.image}
                         type="text"
                         name="image"
 
@@ -116,6 +143,7 @@ const AddListing = () => {
                 <div>
                     <label className="block mb-1 font-medium">Pick Up Date</label>
                     <input
+                    defaultValue={updateListing?.date}
                         type="date"
                         name="date"
 
@@ -138,13 +166,13 @@ const AddListing = () => {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full btn btn-primary text-white py-2 rounded-lg"
+                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
                 >
-                    Submit
+                    Update
                 </button>
             </form>
         </div>
     );
 };
 
-export default AddListing;
+export default UpdateListing;

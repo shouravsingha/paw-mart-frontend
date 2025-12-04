@@ -25,7 +25,7 @@ const PopularSection = () => {
     }
 
     return (
-        <div className="mt-8 w-11/12 mx-auto lg:w-9/12">
+        <div className="mt-8 w-11/12 mx-auto">
             <h3 className="font-bold text-3xl text-center">
                 Our Pet Care Products & Services
             </h3>
@@ -34,7 +34,7 @@ const PopularSection = () => {
                 {
                     services.slice(0, 6).map((service) =>
                         <motion.div whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
+                            
                             onHoverStart={() => console.log('hover started!')}
                             key={service._id}
                             className="card w-full bg-base-100 shadow-2xl rounded-xl"

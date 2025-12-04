@@ -41,7 +41,7 @@ const MyProfile = () => {
 
                 <h2 className="text-2xl font-bold mt-4">{user.displayName}</h2>
                 <p className="mt-2">{user.email}</p>
-                <button onClick={handleOpenForm}   className='btn btn-parimary mt-5'>Update Profile</button>
+                <button onClick={handleOpenForm}   className='btn btn-secondary mt-5'>Update Profile</button>
 
                 {
                     isOpen && (
@@ -52,7 +52,7 @@ const MyProfile = () => {
                             <label className="label">Photo URL</label>
                             <input defaultValue={user?.photoURL} name='photoUrl' type="text" className="input" placeholder="Photo Url" />
 
-                            <button className="btn btn-neutral mt-4">Update</button>
+                            <button className="btn btn-primary mt-4">Update</button>
                         </form>
                     )
                 }
