@@ -29,21 +29,35 @@ const NavBar = () => {
 
                         <li><NavLink to="/" className={navClass} end>Home</NavLink></li>
                         <li><NavLink to="/services" className={navClass}>Pets & Supplies</NavLink></li>
-                        <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
-                        <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
-                        <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
+                        {
+                            user && (
+                                <>
+                                    <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
+                                    <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
+                                    <li><NavLink to="/myorders" className={navClass}>My Orders</NavLink></li>
+                                    <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
+                                </>
+                            )
+                        }
 
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-3xl font-extrabold font">WarmPaws</a>
+                <a className="btn btn-ghost text-3xl font-extrabold font">PawMart</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <li><NavLink to="/" className={navClass} end>Home</NavLink></li>
                     <li><NavLink to="/services" className={navClass}>Pets & Supplies</NavLink></li>
-                    <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
-                    <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
-                    <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
+                    {
+                        user && (
+                            <>
+                                <li><NavLink to="/addlisting" className={navClass}>Add Listing</NavLink></li>
+                                <li><NavLink to="/mylisting" className={navClass}>My Listing</NavLink></li>
+                                <li><NavLink to="/myorders" className={navClass}>My Orders</NavLink></li>
+                                <li><NavLink to="/myprofile" className={navClass}>My Profile</NavLink></li>
+                            </>
+                        )
+                    }
                 </ul>
             </div>
             {

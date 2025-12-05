@@ -1,48 +1,62 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const AddListing = () => {
+    const { user } = useContext(AuthContext);
 
-    const { user } = useContext(AuthContext)
+    
+    const [category, setCategory] = useState("");
+    const [price, setPrice] = useState("");
+
+    
+    useEffect(() => {
+        if (category === "Pets") {
+            setPrice(0);
+        }
+    }, [category]);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const form = e.target;
-        const name = form.name.value;
-        const category = form.category.value;
-        const price = parseInt(form.price.value);
-        const location = form.location.value;
-        const description = form.description.value;
-        const image = form.image.value;
-        const date = form.date.value;
-        const email = form.email.value;
 
         const formData = {
-            name,
-            category,
-            price,
-            location,
-            description,
-            image,
-            date,
-            email,
-        }
-        console.log(formData);
+            name: form.name.value,
+            category: category,
+            price: parseInt(price),
+            location: form.location.value,
+            description: form.description.value,
+            image: form.image.value,
+            date: form.date.value,
+            email: form.email.value,
+        };
+
         axios.post('http://localhost:3000/listing', formData)
-        .then(res =>{
-            console.log(res);
-            
-        })
-        
-    }
+            .then(res => {
+                console.log(res);
+                toast.success("Listing added successfully!");
+                form.reset();
+
+                
+                setCategory("");
+                setPrice("");
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("Something went wrong!");
+            });
+    };
+
     return (
         <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
+            <Toaster position="top-right" reverseOrder={false} />
+
             <h1 className="text-2xl font-bold mb-4">Add Product / Pet</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
-                {/* Product / Pet Name */}
+                
                 <div>
                     <label className="block mb-1 font-medium">Product / Pet Name</label>
                     <input
@@ -50,6 +64,7 @@ const AddListing = () => {
                         name="name"
                         className="w-full border rounded-lg px-3 py-2 focus:ring"
                         placeholder="Enter name"
+                        required
                     />
                 </div>
 
@@ -59,6 +74,9 @@ const AddListing = () => {
                     <select
                         name="category"
                         className="w-full border rounded-lg px-3 py-2"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
                     >
                         <option value="">Select Category</option>
                         <option value="Pets">Pets</option>
@@ -74,7 +92,11 @@ const AddListing = () => {
                     <input
                         type="number"
                         name="price"
-                        className='w-full border rounded-lg px-3 py-2'
+                        className="w-full border rounded-lg px-3 py-2"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        disabled={category === "Pets"}   // 🔥 Disable when pets
+                        required
                     />
                 </div>
 
@@ -86,6 +108,7 @@ const AddListing = () => {
                         name="location"
                         className="w-full border rounded-lg px-3 py-2"
                         placeholder="Enter location"
+                        required
                     />
                 </div>
 
@@ -97,6 +120,7 @@ const AddListing = () => {
                         className="w-full border rounded-lg px-3 py-2"
                         rows={3}
                         placeholder="Enter details"
+                        required
                     />
                 </div>
 
@@ -106,20 +130,20 @@ const AddListing = () => {
                     <input
                         type="text"
                         name="image"
-
                         className="w-full border rounded-lg px-3 py-2"
                         placeholder="https://example.com/pet.jpg"
+                        required
                     />
                 </div>
 
-                {/* Pick-up Date */}
+                {/* Date */}
                 <div>
                     <label className="block mb-1 font-medium">Pick Up Date</label>
                     <input
                         type="date"
                         name="date"
-
                         className="w-full border rounded-lg px-3 py-2"
+                        required
                     />
                 </div>
 
@@ -135,7 +159,7 @@ const AddListing = () => {
                     />
                 </div>
 
-                {/* Submit Button */}
+                
                 <button
                     type="submit"
                     className="w-full btn btn-primary text-white py-2 rounded-lg"

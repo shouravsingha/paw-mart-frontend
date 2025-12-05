@@ -30,7 +30,7 @@ const MeetOurVets = () => {
     return (
         <div className='mt-15 w-11/12 mx-auto mb-30'>
             <div>
-                <h2 className='font-bold text-4xl text-center'>Meet Our Expert Vets</h2>
+                <h2 className='font-bold text-4xl text-center mb-15'>Meet Our Expert Vets</h2>
             </div>
             <div className='mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
                 {doctors.map((vet) => (

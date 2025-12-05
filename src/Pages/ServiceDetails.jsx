@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { FaLocationArrow, FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router';
+import { AuthContext } from '../Provider/AuthProvider';
+import axios from 'axios';
 
 
 const ServiceDetails = () => {
@@ -9,23 +10,7 @@ const ServiceDetails = () => {
     const { myId } = useParams();
     const [service, setService] = useState([]);
     const [loading, setLoading] = useState(true)
-
-    const [isOpen, setIsOpen] = useState(false)
-
-    const [formData, setFormData] = useState({ name: '', email: '' });
-
-    const handleOpenForm = () => {
-        setIsOpen(!isOpen)
-    }
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        toast.success('Booking successful!');
-        setFormData({ name: '', email: '' });
-    };
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         fetch(`http://localhost:3000/listing/${myId}`)
@@ -36,6 +21,54 @@ const ServiceDetails = () => {
             })
             .catch(error => console.log(error));
     }, [myId]);
+
+    const handleOrder = (e) => {
+        e.preventDefault();
+        const form = e.target;
+
+        const productName = form.productName.value;
+        const buyerName = form.buyerName.value;
+        const email = form.email.value;
+        const quantity = parseInt(form.quantity.value);
+        const price = parseInt(form.price.value);
+        const address = form.address.value;
+        const phone = form.phone.value;
+        const additionalNote = form.additionalNote.value;
+
+        const formData = {
+            productId: myId,
+            productName,
+            buyerName,
+            email,
+            quantity,
+            price,
+            address,
+            phone,
+            additionalNote,
+            date: new Date()
+        };
+
+        axios.post('http://localhost:3000/orders', formData)
+            .then(res => {
+                console.log(res);
+                toast.success("Your order is successfully placed! 🎉");
+
+                
+                document.getElementById("my_modal_3").close();
+
+                // Reset form
+                form.reset();
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("Something went wrong!");
+            });
+    };
+
+
+    if (loading) {
+        return <p>loading</p>
+    }
 
 
     return (
@@ -79,40 +112,56 @@ const ServiceDetails = () => {
                         </p>
                     </div>
 
-                    <button onClick={handleOpenForm} className="btn btn-primary w-full mt-4">
-                        Book Service
-                    </button>
+
                     <Toaster position="top-right" reverseOrder={false} />
 
-                    {
-                        isOpen && (
-                            <form onSubmit={handleSubmit} className="fieldset">
-                                <label className="label">Name</label>
-                                <input
-                                    name='name'
-                                    type="text"
-                                    className="input"
-                                    placeholder="Name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                />
-
-                                <label className="label">Email</label>
-                                <input
-                                    name='email'
-                                    type="email"
-                                    className="input"
-                                    placeholder="Email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-
-                                <button type='submit' className="btn btn-neutral mt-4">Book Now</button>
+                    {/* You can open the modal using document.getElementById('ID').showModal() method */}
+                    <button className="btn btn-primary" onClick={() => document.getElementById('my_modal_3').showModal()}>Adopt / Order Now</button>
+                    <dialog id="my_modal_3" className="modal">
+                        <div className="modal-box">
+                            <form method="dialog">
+                                {/* if there is a button in form, it will close the modal */}
+                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             </form>
-                        )
-                    }
+                            {/* from daisy ui */}
+                            <form onSubmit={handleOrder} className="fieldset bg-base-200 border-base-300 rounded-box w-full border p-4">
+                                <legend className="fieldset-legend text-center text-2xl">Order details</legend>
+
+                                <label className="label">Product Name</label>
+                                <input readOnly defaultValue={service?.name} type="text" name='productName' className="input w-full" placeholder="Product name" />
+
+                                <label className="label">Buyer Name</label>
+                                <input defaultValue={user?.displayName} type="text" name='buyerName' className="input w-full" placeholder="Buyer name" />
+
+                                <label className="label">Your Email</label>
+                                <input defaultValue={user?.email} type="email" name='email' className="input w-full" placeholder="Email" />
+
+                                <label className="label">Quantity</label>
+                                <input required type="number" name='quantity' className="input w-full" placeholder="Quantity" />
+
+                                <label className="label">Price</label>
+                                <input readOnly defaultValue={service?.price} type="number" name='price' className="input w-full" placeholder="Price" />
+
+                                <label className="label">Your Address</label>
+                                <input required type="text" name='address' className="input w-full" placeholder="Address" />
+
+                                <label className="label">Phone</label>
+                                <input required type="number" name='phone' className="input w-full" placeholder="Phone" />
+
+                                <label className="label">Additional Note</label>
+                                <textarea
+                                    name="additionalNote"
+                                    className="w-full input py-2"
+                                    rows={1}
+                                    placeholder="Additional Note"
+                                    required
+                                />
+                                <br />
+                                <button className='btn btn-primary'>Order</button>
+
+                            </form>
+                        </div>
+                    </dialog>
                 </div>
 
             </div>

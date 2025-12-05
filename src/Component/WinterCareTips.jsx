@@ -31,8 +31,8 @@ const winterTips = [
 
 const WinterCareTips = () => {
     return (
-        <div className='mt-10 w-11/12 mx-auto'>
-            <h2 className='font-bold text-4xl text-center mb-10'>Winter Care Tips for Pets</h2>
+        <div className='mt-15 w-11/12 mx-auto'>
+            <h2 className='font-bold text-4xl text-center mb-10 mb-15'>Winter Care Tips for Pets</h2>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
                 {winterTips.map((tip) => (
                     <div key={tip.id} className="card bg-base-100 shadow-sm border rounded-lg p-5">

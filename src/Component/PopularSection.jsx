@@ -8,7 +8,7 @@ const PopularSection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/listing')
+        fetch('http://localhost:3000/listing?limit=6')
             .then(res => res.json())
             .then(data => {
                 setServices(data);
@@ -25,14 +25,14 @@ const PopularSection = () => {
     }
 
     return (
-        <div className="mt-8 w-11/12 mx-auto">
-            <h3 className="font-bold text-3xl text-center">
+        <div className="mt-15 w-11/12 mx-auto">
+            <h3 className="font-bold text-4xl text-center">
                 Our Pet Care Products & Services
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                 {
-                    services.slice(0, 6).map((service) =>
+                    services.map((service) =>
                         <motion.div whileHover={{ scale: 1.1 }}
                             
                             onHoverStart={() => console.log('hover started!')}
