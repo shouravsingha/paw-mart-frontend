@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router';
-import { motion } from "motion/react"
+import { Link, useLocation } from 'react-router';
+import { motion } from "motion/react";
 
 const Services = () => {
+  const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const defaultCategory = urlParams.get("category") || "";
+
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState(defaultCategory);
 
   useEffect(() => {
     fetch(`http://localhost:3000/listing?category=${category}`)
@@ -19,10 +23,7 @@ const Services = () => {
         setLoading(false);
       });
   }, [category]);
-  
-  
 
-  // Show spinner while loading
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
@@ -31,18 +32,15 @@ const Services = () => {
     );
   }
 
-
   return (
     <div className="w-11/12 lg:w-10/12 mx-auto mb-20">
 
       {/* Select Dropdown */}
-      <select onChange={(e) => setCategory(e.target.value)}
-        defaultValue="Choose Category"
+      <select
+        onChange={(e) => setCategory(e.target.value)}
+        value={category}
         className="select select-primary mt-10"
       >
-        <option disabled={true}>
-          Choose Category
-        </option>
         <option value="">All</option>
         <option value="Pets">Pets</option>
         <option value="Food">Food</option>
@@ -59,7 +57,6 @@ const Services = () => {
             whileHover={{ scale: 1.05 }}
             className="card bg-base-100 shadow-md rounded-xl overflow-hidden w-full"
           >
-            {/* Image */}
             <figure className="w-full h-[250px]">
               <img
                 className="w-full h-full object-cover"
@@ -68,40 +65,28 @@ const Services = () => {
               />
             </figure>
 
-            {/* Card Body */}
             <div className="p-5 flex flex-col gap-3">
-
-              {/* Name + Location */}
               <div className="flex justify-between items-start">
-                <h2 className="card-title text-lg font-semibold">
-                  {service?.name}
-                </h2>
-                <p className="text-sm text-gray-600">
-                  {service?.location}
-                </p>
+                <h2 className="card-title text-lg font-semibold">{service?.name}</h2>
+                <p className="text-sm text-gray-600">{service?.location}</p>
               </div>
 
-              {/* Price + Category */}
               <div className="flex justify-between text-sm">
                 <p className="font-medium">Price: {service?.price}$</p>
                 <p className="font-medium">Category: {service?.category}</p>
               </div>
 
-              {/* Button */}
               <Link to={`/details/${service?._id}`}>
-                <button className="btn btn-primary w-full mt-2">
-                  View Details
-                </button>
+                <button className="btn btn-primary w-full mt-2">View Details</button>
               </Link>
-
             </div>
+
           </motion.div>
         ))}
 
       </div>
 
     </div>
-
   );
 };
 
