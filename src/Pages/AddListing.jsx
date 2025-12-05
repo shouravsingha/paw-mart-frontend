@@ -2,15 +2,16 @@ import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const AddListing = () => {
     const { user } = useContext(AuthContext);
 
-    
+
     const [category, setCategory] = useState("");
     const [price, setPrice] = useState("");
 
-    
+
     useEffect(() => {
         if (category === "Pets") {
             setPrice(0);
@@ -35,10 +36,14 @@ const AddListing = () => {
         axios.post('http://localhost:3000/listing', formData)
             .then(res => {
                 console.log(res);
-                toast.success("Listing added successfully!");
+                Swal.fire({
+                    title: "Listing Successfully!",
+                    icon: "success",
+                    draggable: true
+                });
                 form.reset();
 
-                
+
                 setCategory("");
                 setPrice("");
             })
@@ -56,7 +61,7 @@ const AddListing = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
-                
+
                 <div>
                     <label className="block mb-1 font-medium">Product / Pet Name</label>
                     <input
@@ -159,7 +164,7 @@ const AddListing = () => {
                     />
                 </div>
 
-                
+
                 <button
                     type="submit"
                     className="w-full btn btn-primary text-white py-2 rounded-lg"
