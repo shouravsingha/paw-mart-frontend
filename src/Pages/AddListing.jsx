@@ -7,10 +7,8 @@ import Swal from 'sweetalert2';
 const AddListing = () => {
     const { user } = useContext(AuthContext);
 
-
     const [category, setCategory] = useState("");
     const [price, setPrice] = useState("");
-
 
     useEffect(() => {
         if (category === "Pets") {
@@ -35,39 +33,33 @@ const AddListing = () => {
 
         axios.post('http://localhost:3000/listing', formData)
             .then(res => {
-                console.log(res);
                 Swal.fire({
                     title: "Listing Successfully!",
                     icon: "success",
-                    draggable: true
                 });
                 form.reset();
-
-
                 setCategory("");
                 setPrice("");
             })
             .catch(err => {
-                console.log(err);
-                toast.error("Something went wrong!");
+                toast.error("Something went wrong!", err);
             });
     };
 
     return (
-        <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
+        <div className="max-w-xl mx-auto bg-base-100 p-6 rounded-xl shadow-md text-base-content border-[0.5px] mt-15">
             <Toaster position="top-right" reverseOrder={false} />
 
             <h1 className="text-2xl font-bold mb-4">Add Product / Pet</h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
-
                 <div>
                     <label className="block mb-1 font-medium">Product / Pet Name</label>
                     <input
                         type="text"
                         name="name"
-                        className="w-full border rounded-lg px-3 py-2 focus:ring"
+                        className="input input-bordered w-full"
                         placeholder="Enter name"
                         required
                     />
@@ -78,7 +70,7 @@ const AddListing = () => {
                     <label className="block mb-1 font-medium">Category</label>
                     <select
                         name="category"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="select select-bordered w-full"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         required
@@ -97,10 +89,10 @@ const AddListing = () => {
                     <input
                         type="number"
                         name="price"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="input input-bordered w-full"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        disabled={category === "Pets"}   // 🔥 Disable when pets
+                        disabled={category === "Pets"}
                         required
                     />
                 </div>
@@ -111,7 +103,7 @@ const AddListing = () => {
                     <input
                         type="text"
                         name="location"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="input input-bordered w-full"
                         placeholder="Enter location"
                         required
                     />
@@ -122,11 +114,11 @@ const AddListing = () => {
                     <label className="block mb-1 font-medium">Description</label>
                     <textarea
                         name="description"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="textarea textarea-bordered w-full"
                         rows={3}
                         placeholder="Enter details"
                         required
-                    />
+                    ></textarea>
                 </div>
 
                 {/* Image URL */}
@@ -135,7 +127,7 @@ const AddListing = () => {
                     <input
                         type="text"
                         name="image"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="input input-bordered w-full"
                         placeholder="https://example.com/pet.jpg"
                         required
                     />
@@ -147,7 +139,7 @@ const AddListing = () => {
                     <input
                         type="date"
                         name="date"
-                        className="w-full border rounded-lg px-3 py-2"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
@@ -160,14 +152,13 @@ const AddListing = () => {
                         name="email"
                         value={user?.email}
                         readOnly
-                        className="w-full border rounded-lg px-3 py-2 bg-gray-100 text-gray-600"
+                        className="input input-bordered w-full bg-base-200"
                     />
                 </div>
 
-
                 <button
                     type="submit"
-                    className="w-full btn btn-primary text-white py-2 rounded-lg"
+                    className="btn btn-primary w-full text-white"
                 >
                     Submit
                 </button>
