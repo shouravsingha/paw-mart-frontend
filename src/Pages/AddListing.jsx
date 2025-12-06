@@ -31,7 +31,7 @@ const AddListing = () => {
             email: form.email.value,
         };
 
-        axios.post('http://localhost:3000/listing', formData)
+        axios.post('https://paw-mart-backend-six.vercel.app/listing', formData)
             .then(res => {
                 Swal.fire({
                     title: "Listing Successfully!",

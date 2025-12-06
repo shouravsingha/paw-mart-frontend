@@ -8,7 +8,7 @@ const PopularSection = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/listing?limit=6')
+        fetch('https://paw-mart-backend-six.vercel.app/listing?limit=6')
             .then(res => res.json())
             .then(data => {
                 setServices(data);

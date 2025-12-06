@@ -11,7 +11,7 @@ const UpdateListing = () => {
     const navigation = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/listing/${id}`)
+        axios.get(`https://paw-mart-backend-six.vercel.app/listing/${id}`)
             .then(res => {
                 setUpdateListing(res.data);
                 setCategory(res.data.category);
@@ -43,7 +43,7 @@ const UpdateListing = () => {
             createdAt: updateListing?.createdAt
         };
 
-        axios.put(`http://localhost:3000/update/${id}`, formData)
+        axios.put(`https://paw-mart-backend-six.vercel.app/update/${id}`, formData)
             .then(res => {
                 navigation('/mylisting');
             })

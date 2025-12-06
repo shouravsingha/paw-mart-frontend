@@ -13,7 +13,7 @@ const ServiceDetails = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/listing/${myId}`)
+        fetch(`https://paw-mart-backend-six.vercel.app/listing/${myId}`)
             .then(res => res.json())
             .then(data => {
                 setService(data)
@@ -48,7 +48,7 @@ const ServiceDetails = () => {
             date: new Date()
         };
 
-        axios.post('http://localhost:3000/orders', formData)
+        axios.post('https://paw-mart-backend-six.vercel.app/orders', formData)
             .then(res => {
                 console.log(res);
                 toast.success("Your order is successfully placed! 🎉");

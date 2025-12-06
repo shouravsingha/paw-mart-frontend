@@ -12,7 +12,7 @@ const Services = () => {
   const [category, setCategory] = useState(defaultCategory);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/listing?category=${category}`)
+    fetch(`https://paw-mart-backend-six.vercel.app/listing?category=${category}`)
       .then(res => res.json())
       .then(data => {
         setServices(data);

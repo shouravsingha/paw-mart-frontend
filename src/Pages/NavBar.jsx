@@ -25,7 +25,7 @@ const NavBar = () => {
     const navClass = ({ isActive }) =>
         isActive
             ? "text-primary font-bold underline"
-            : "text-base-content";  // auto white in dark mode
+            : "text-base-content";
 
     const handleSignOut = () => signOut(auth);
 
