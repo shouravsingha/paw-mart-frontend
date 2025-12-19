@@ -125,6 +125,7 @@ const NavBar = () => {
 
                         <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2">
                             <li><NavLink to="/myprofile">My Profile</NavLink></li>
+                            <li><Link to={'/dashboard/main'}>Dashboard</Link></li>
                             <li><button onClick={handleSignOut}>Logout</button></li>
                         </ul>
                     </div>

@@ -13,6 +13,9 @@ import AddListing from "../Pages/AddListing";
 import MyListing from "../Pages/MyListing";
 import UpdateListing from "../Pages/UpdateListing";
 import MyOrders from "../Pages/MyOrders";
+import DashboardLayout from "../DashboardLayout/DashboardLayout";
+import MainDashboard from "../Pages/Dashboard/MainDashboard/MainDashboard";
+import CreateDonation from "../Pages/Dashboard/CreateDonation/CreateDonation";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +70,20 @@ const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: 'main',
+        element: <MainDashboard></MainDashboard>
+      },
+      {
+        path: 'createdonation',
+        element: <CreateDonation></CreateDonation>
+      },
+    ]
+  }
 ]);
 
 export default router;

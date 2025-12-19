@@ -6,18 +6,21 @@ import auth from '../Firebase/Firebase.config';
 import { FcGoogle } from 'react-icons/fc';
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
 
 const Register = () => {
-    const { registerWithEmailPassword, setUser, handleGoogleSignIn } = useContext(AuthContext)
+    const { registerWithEmailPassword, user, setUser, handleGoogleSignIn } = useContext(AuthContext)
 
     const [showPass, setShowPass] = useState(false);
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         const email = e.target.email.value
         const password = e.target.password.value
         const name = e.target.name.value
-        const photoUrl = e.target.photoUrl.value
+        const photo = e.target.photo
+        const file = photo.files[0]
+
 
         const uppercase = /[A-Z]/;
         const lowercase = /[a-z]/;
@@ -32,17 +35,46 @@ const Register = () => {
             return alert("Password must contain at least ONE lowercase letter");
         }
 
-        registerWithEmailPassword(email, password)
-            .then((userCredential) => {
-                updateProfile(auth.currentUser, {
-                    displayName: name, 
-                    photoURL: photoUrl
-                }).then(() => {
-                    setUser(userCredential.user)
+        const res = await axios.post(`https://api.imgbb.com/1/upload?600&key=c288bf9a517b11d83123d4f58d60e4a3`, { image: file }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
+
+        const mainPhotoUrl = res.data.data.display_url
+
+        const formData = {
+            email,
+            password,
+            name,
+            mainPhotoUrl,
+        }
+
+        if (res.data.success == true) {
+
+            registerWithEmailPassword(email, password)
+                .then((userCredential) => {
+                    updateProfile(auth.currentUser, {
+                        displayName: name,
+                        photoURL: mainPhotoUrl
+                    }).then(() => {
+                        setUser(userCredential.user)
+                        axios.post('http://localhost:5000/users', formData)
+                            .then(res => {
+                                console.log(res.data);
+                            }).catch(err => {
+                                console.log(err);
+
+                            })
+                    })
                 })
-            })
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
+        }
+
+
     }
+    console.log(user);
 
     const googleSignUp = () => {
         handleGoogleSignIn()
@@ -73,9 +105,9 @@ const Register = () => {
                             <label className="label">Name</label>
                             <input name='name' type="text" className="input w-full" placeholder="Full Name" />
 
-                            {/* photo url */}
-                            <label className="label">Photo URL</label>
-                            <input name='photoUrl' type="text" className="input w-full" placeholder="Photo URL" />
+                            {/* photo file */}
+                            <label className="label">Profile Photo</label>
+                            <input name='photo' type="file" className="input w-full" placeholder="Photo" />
 
                             {/* password + eye button */}
                             <label className="label">Password</label>
